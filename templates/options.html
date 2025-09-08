@@ -1,16 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Options Page{% endblock %}
 {% block content %}
-    <form action="/quizPage" method="post">
-        <button>Quiz</button>
-    </form>
-    <form action="/sudokuPage" method="post">
-        <button>Sudoku</button>
-    </form>
-    <form action="/crosswordPage" method="post">
-        <button>Crossword</button>
-    </form>
-    <form action="/flipflopPage" method="post">
-        <button>FlipFlop</button>
-    </form>
+<button><a href="quizPage">Quiz</a></button>
+<br>
+<button><a href="sudokuPage">Sudoku</a></button>
+<br>
+<button><a href="crosswordPage">Crossword</a></button>
+<br>
+<button><a href="flipflopPage">FlipFlop</a></button>
 {% endblock %}
