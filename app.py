@@ -14,17 +14,20 @@ def nextPage():
 def quizPage():
     return render_template("quiz.html")
 
-@app.route('/sudokuPage')
-def sudokuPage():
+@app.route('/maintenance')
+def maintenancePage():
     return render_template("maintenance.html")
+# @app.route('/sudokuPage')
+# def sudokuPage():
+#     return render_template("maintenance.html")
 
-@app.route('/crosswordPage')
-def crosswordPage():
-    return render_template("maintenance.html")
+# @app.route('/crosswordPage')
+# def crosswordPage():
+#     return render_template("maintenance.html")
 
-@app.route('/flipflopPage')
-def flipflopPage():
-    return render_template("maintenance.html")
+# @app.route('/flipflopPage')
+# def flipflopPage():
+#     return render_template("maintenance.html")
 
 if __name__ == '__main__':
     app.run(debug = True)

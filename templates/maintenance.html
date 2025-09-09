@@ -1,5 +1,53 @@
 {% extends "base.html" %}
 {% block title %}Maintenance Page{% endblock %}
 {% block content %}
-    <h1>This page is under maintenance</h1>
+    <!-- Floating elements -->
+    <div class="floating-elements">
+        <div class="shapes"></div>
+        <div class="shapes"></div>
+        <div class="shapes"></div>
+    </div>
+
+    <!-- Maintenance Card -->
+    <div class="card active" id="maintenancePage">
+    <div class="maintenance-icon">
+      <i class="fas fa-tools"></i>
+    </div>
+    <h1 class="under-maintenance">Under Maintenance</h1>
+    <p class="under-maintenance">We're working hard to bring you exciting new games! Our Sudoku, Crossword, and Flip Flop games are currently under development.</p>
+    
+    <p class="under-maintenance">Meantime, why not try our Quiz game?</p>
+    <a href="nextButton"><button class="under-maintenance">Play Quiz Instead</button></a>
+  </div>
 {% endblock %}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body> -->
+    <!-- Floating elements -->
+    <!-- <div class="floating-elements">
+        <div class="shapes"></div>
+        <div class="shapes"></div>
+        <div class="shapes"></div>
+    </div> -->
+
+    <!-- Maintenance Card -->
+    <!-- <div class="card active" id="maintenancePage">
+    <div class="maintenance-icon">
+      <i class="fas fa-tools"></i>
+    </div>
+    <h1 class="under-maintenance">Under Maintenance</h1>
+    <p class="under-maintenance">We're working hard to bring you exciting new games! Our Sudoku, Crossword, and Flip Flop games are currently under development.</p>
+    
+    <p class="under-maintenance">Meantime, why not try our Quiz game?</p>
+    <a href="nextButton"><button class="under-maintenance">Play Quiz Instead</button></a>
+  </div>
+</body>
+</html> -->
