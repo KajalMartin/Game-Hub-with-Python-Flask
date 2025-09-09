@@ -6,23 +6,23 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route('/nextButton', methods = ['POST'])
+@app.route('/nextButton')
 def nextPage():
     return render_template("options.html")
 
-@app.route('/quizPage', methods = ['POST'])
+@app.route('/quizPage')
 def quizPage():
     return render_template("quiz.html")
 
-@app.route('/sudokuPage', methods = ['POST'])
+@app.route('/sudokuPage')
 def sudokuPage():
     return render_template("maintenance.html")
 
-@app.route('/crosswordPage', methods = ['POST'])
+@app.route('/crosswordPage')
 def crosswordPage():
     return render_template("maintenance.html")
 
-@app.route('/flipflopPage', methods = ['POST'])
+@app.route('/flipflopPage')
 def flipflopPage():
     return render_template("maintenance.html")
 

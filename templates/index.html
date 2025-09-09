@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/style.css">
-</head>
-<body>
-    <div id="card">
-        <h1>Welcome</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <form action="nextButton" id="next" method="post">
-            <button type="submit">Let's Play</button>
-        </form>
+{% extends "base.html" %}
+{% block content %}
+    <!-- Floating elements -->
+    <div class="floating-elements">
+        <div class="shapes"></div>
+        <div class="shapes"></div>
+        <div class="shapes"></div>
     </div>
-</body>
-</html>
+
+    <!-- Start Page -->
+    <div class="card active" id="startPage">
+        <h1>Welcome to GameHub</h1>
+        <p>Challenge your mind with our collection of engaging games designed for adults. Perfect for relaxing and keeping your brain sharp.</p>
+        <a href="nextPage"><button>Explore Games</button></a>
+    </div>
+{% endblock %}
