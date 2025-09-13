@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}GameHub - Quiz{% endblock %}
+
+{% block content %}
+  <!-- Quiz Page -->
+  <div class="card active">
+    <a href="quizPage">
+        <div class="nav-button">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+    </a>
+
+    <!-- Timer -->
+    <div class="timer">
+      <span><i class="fas fa-clock"></i><span id="time-remaining">{{time_remaining}}</span> s</span>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-containter">
+      <div class="progress-bar" style="width: {{progress}}%;"></div>
+    </div>
+
+    <!-- Questions -->
+    <div class="question">{{question.question}}</div>
+
+    <!-- Options -->
+    <form action="{{url_for('check_answer')}}" id="quiz-form" method="post">
+      <input type="hidden" name="answer" id="selected-answer">
+
+      <div class="options">
+        {% for option in question.options %}
+          <div class="option" data-value="{{option}}"> <!-- To get the value of the option selected -->
+            {{option}}
+          </div>
+        {% endfor %}
+      </div>
+    </form>
+{% endblock %}

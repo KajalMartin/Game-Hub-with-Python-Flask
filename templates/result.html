@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Result{% endblock %}
+{% block content %}
+<div class="card active">
+  <h2>Quiz Completed</h2>
+  <div class="score-display">{{ score }}/{{ total }}</div>
+  <p>
+    {% if score/total >= 0.7 %}
+      Great job! 🎉
+    {% elif score/total >= 0.4 %}
+      Not bad, keep practicing 💪
+    {% else %}
+      Keep trying, you’ll get there! 🌱
+    {% endif %}
+  </p>
+  <a href="{{ url_for('quizPage') }}"><button>Play Again</button></a>
+</div>
+{% endblock %}
