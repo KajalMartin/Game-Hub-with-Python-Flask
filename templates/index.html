@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
     <!-- Floating elements -->
-    <div class="floating-elements">
+    <!-- <div class="floating-elements">
         <div class="shapes"></div>
         <div class="shapes"></div>
         <div class="shapes"></div>
-    </div>
+    </div> -->
 
     <!-- Start Page -->
     <div class="card active" id="startPage">
         <h1>Welcome to GameHub</h1>
         <p>Challenge your mind with our collection of engaging games designed for adults. Perfect for relaxing and keeping your brain sharp.</p>
-        <a href="nextButton"><button>Explore Games</button></a>
+        <a href="{{url_for('nextPage')}}"><button>Explore Games</button></a>
     </div>
 {% endblock %}
 

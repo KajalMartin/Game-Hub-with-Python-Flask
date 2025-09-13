@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Result{% endblock %}
+{% block content %}
+    <div class="card active">
+        <h1>Quiz Result</h1>
+        <div class="score-display">{{score}}/{{total}}</div>
+        <div class="result-message {{resultClass}}">{{resultMessage}}</div> <!-- This will choose the style according to result class - success/fail -->
+        <div style="margin-top : 30px; margin-bottom: 20px;">
+            <a href="{{url_for('start_quiz')}}">
+                <button id="play">Play Again</button>
+            </a>
+            <a href="{{url_for('nextPage')}}">
+                <button>Back to Games</button>
+            </a>
+        </div>
+
+        {% if timeUp%}
+            <!-- Time's Up Notification -->
+             <div class="popup active">
+                <div class="popup-card fail">
+                    <h2><i class="fas fa-clock"></i> Time's Up!</h2>
+                    <p>You ran out of time! Try to answer faster next time.</p>
+                    <button onclick="closePopup()">OK</button>
+                </div>
+             </div>
+        {% endif %}
+
+        <script>
+            function closePopup(){
+                document.querySelector('.popup').classList.remove('active');
+            }
+        </script>
+    </div>
+{% endblock %}

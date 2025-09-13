@@ -434,3 +434,6 @@ button:active {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+#play{
+    margin-bottom: 10px;
+}

@@ -5,7 +5,7 @@
 {% block content %}
   <!-- Quiz Page -->
   <div class="card active">
-    <a href="quizPage">
+    <a href="{{url_for('nextPage')}}">
         <div class="nav-button">
             <i class="fas fa-arrow-left"></i>
         </div>
@@ -13,11 +13,11 @@
 
     <!-- Timer -->
     <div class="timer">
-      <span><i class="fas fa-clock"></i><span id="time-remaining">{{time_remaining}}</span> s</span>
+      <span><i class="fas fa-clock"></i><span id="time-remaining">{{timeRemaining}}</span> s</span>
     </div>
 
     <!-- Progress Bar -->
-    <div class="progress-containter">
+    <div class="progress-container">
       <div class="progress-bar" style="width: {{progress}}%;"></div>
     </div>
 
@@ -36,4 +36,76 @@
         {% endfor %}
       </div>
     </form>
+
+    <!-- Timer Pop-up -->
+     <div id="timeup-popup" class="popup">
+      <div class="popup-card">
+        <h2><i class="fas fa-clock"></i> Time's Up!</h2></h2>
+        <p>The time for this quiz has ended.</p>
+        <button onclick="submitForm()">Try Again</button>
+      </div>
+     </div>
+
+     <script>
+      // Fix variable names and references
+      let timeRemaining = {{ timeRemaining }};
+      const timerElement = document.getElementById('time-remaining');
+      const form = document.getElementById('quiz-form');
+      const answerInput = document.getElementById('selected-answer');
+      const timeupPopup = document.getElementById('timerup-popup'); // Match HTML ID
+      const options = document.querySelectorAll('.option');
+      let answered = false;
+
+      function updateTimer() {
+        if (answered) return;
+        
+        timeRemaining--;
+        timerElement.textContent = timeRemaining;
+        
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          showTimeUpPopup();
+        }
+      }
+
+      function showTimeUpPopup() {
+        timeupPopup.classList.add('active');
+      }
+
+      function submitForm() {
+        form.submit();
+      }
+
+      // Add click event to options - FIXED
+      options.forEach(option => {
+        option.addEventListener('click', function() {
+          if (answered) return;
+          
+          answered = true;
+          const selectedValue = this.getAttribute('data-value');
+          answerInput.value = selectedValue;
+          
+          // Show visual feedback
+          options.forEach(opt => {
+            if (opt.getAttribute('data-value') === "{{ question.answer }}") {
+              opt.classList.add('correct');
+            } else if (opt === this && opt.getAttribute('data-value') !== "{{ question.answer }}") {
+              opt.classList.add('wrong');
+            }
+          });
+          
+          // Submit form after a short delay to show feedback
+          setTimeout(submitForm, 1500);
+        });
+      });
+
+      // Start the timer
+      const timerInterval = setInterval(updateTimer, 1000);
+
+      // Auto-submit form when time runs out
+      setTimeout(() => {
+        if (answered) return;
+        showTimeUpPopup();
+      }, timeRemaining * 1000);
+    </script>
 {% endblock %}

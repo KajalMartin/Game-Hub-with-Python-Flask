@@ -95,23 +95,28 @@ def start_quiz():
 
 @app.route('/quizPage/question')
 def show_question():
-    currentIndex = session.get('currentQuestion', 0) #session.get(key, default=None)
-    questions = session.get('questions', [])
+    currentIndex = session.get('currentQuestion', 0)
+    question_list = session.get('questions', [])  # Renamed to avoid conflict
 
-    if currentIndex >= len(questions):
+    if currentIndex >= len(question_list):
         return redirect(url_for('show_result'))
     
-    question = questions[currentIndex]
+    question = question_list[currentIndex]
 
     # Check the progress percentage
-    progress = int((currentIndex/len(questions)) * 100)
+    progress = int((currentIndex/len(question_list)) * 100)
+
+    # Calculate the time remaining
+    timeElapsed = time.time() - session.get('startTime', time.time())
+    timeAllowed = 60
+    timeRemaining = max(0, timeAllowed - int(timeElapsed))
 
     return render_template("quiz_question.html",
-                           question = question,
-                           progress = progress,
-                           currentIndex = currentIndex+1,
-                           totalQuestions = len(questions)
-                           )
+                           question=question, 
+                           progress=progress,
+                           timeRemaining=timeRemaining,  # Fixed variable name
+                           currentIndex=currentIndex + 1,
+                           total_questions=len(question_list))
 
 @app.route('/quizPage/answer', methods=["POST"])
 def check_answer():
@@ -133,16 +138,49 @@ def check_answer():
     # move to the next question
     session['currentQuestion'] = currentIndex + 1
 
+    # Check if time is up
+    timeElapsed = time.time() - session.get('startTime', time.time())
+    timeAllowed = 60
+    timeUp = timeElapsed >= timeAllowed
 
-
-    if session['currentQuestion'] < len(questions):
+    # If there are more questions and time is not up, redirect to the next question
+    if session['currentQuestion'] < len(questions) and not timeUp:
         return redirect(url_for('show_question'))
     else:
         return redirect(url_for("show_result"))
 
 @app.route('/quizPage/result')
 def show_result():
-    return render_template("quiz_question.html")
+    score = session.get('quizScore', 0)
+    total = len(session.get('questions', []))
+    timeTaken = time.time() - session.get('startTime', time.time())
+
+    # Determine result message based on score
+    if score >= 4:
+        resultMessage = "Excellent! You're a quiz master!"
+        resultClass = 'success'
+    elif score >=3:
+        resultMessage = "Good job! You know your stuff!"
+        resultClass = 'success'
+    else:
+        resultMessage = "Keep practicing and you'll improve!"
+        resultClass = "fail"
+
+    # check if the time ran out
+    timeAllowed = 60
+    timeUp = timeTaken >= timeAllowed
+
+    if timeUp:
+        resultMessage = "Time's up! Try to answer faster next time."
+        resultClass = 'fail'
+
+    return render_template('quiz_result.html',
+                           score = score,
+                           total = total,
+                           timeTaken = round(timeTaken, 2),
+                           resultMessage = resultMessage,
+                           resultClass = resultClass,
+                           timeUp = timeUp)
 
 # Maintenance Page
 @app.route('/maintenance')
